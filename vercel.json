@@ -15,5 +15,8 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "engines": {
+    "node": "18.x"
+  }
 }
