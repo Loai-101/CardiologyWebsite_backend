@@ -1,0 +1,5 @@
+[33mffd5cc4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Remove engines field and add explicit NODE_VERSION in Vercel config
+[33m52a9dd8[m Fix Node.js version conflict: Set to 22.x with explicit build command
+[33m55225b4[m Update Node.js to 22.x as required by Vercel (18.x is discontinued)
+[33mc96f5d6[m  fix 69
+[33m088f644[m  fix 6
