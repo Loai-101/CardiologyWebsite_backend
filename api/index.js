@@ -19,29 +19,23 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://cardiology-hospital.vercel.app',
+  'https://cardiology-website-frontend.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+console.log('🌐 CORS Allowed Origins:', allowedOrigins);
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'https://cardiology-hospital.vercel.app',
-    'https://cardiology-website-frontend.vercel.app',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
-  optionsSuccessStatus: 200,
-  preflightContinue: false
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 }));
-
-// Handle preflight requests explicitly
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(200).end();
-});
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -50,14 +44,8 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // MongoDB connection
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI;
+    const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority';
     
-    if (!mongoURI) {
-      console.error('❌ MONGODB_URI environment variable is not set');
-      process.exit(1);
-    }
-    
-    console.log('🔌 Attempting to connect to MongoDB...');
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -91,28 +79,27 @@ app.use('/api/slider', sliderRoutes);
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Dental Clinic API is running!',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development',
+    message: 'Cardiology Hospital API is running!',
     version: '1.0.0',
-    cors: {
-      origin: process.env.FRONTEND_URL || 'not set',
-      allowedOrigins: [
-        'http://localhost:3000',
-        'http://127.0.0.1:3000',
-        'https://cardiology-hospital.vercel.app',
-        'https://cardiology-website-frontend.vercel.app'
-      ]
-    }
+    endpoints: {
+      health: '/api/health',
+      test: '/api/test',
+      auth: '/api/auth',
+      users: '/api/users',
+      appointments: '/api/appointments',
+      offers: '/api/offers',
+      slider: '/api/slider'
+    },
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
   });
 });
-
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Dental Clinic API is running!',
+    message: 'Cardiology Hospital API is running!',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });
