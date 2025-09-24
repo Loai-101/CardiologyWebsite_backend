@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "cardiology-backend",
-  "buildCommand": "npm run build",
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@3.0.7"
@@ -16,10 +15,5 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "regions": ["iad1"],
-  "build": {
-    "env": {
-      "NODE_VERSION": "22"
-    }
-  }
+  "regions": ["iad1"]
 }

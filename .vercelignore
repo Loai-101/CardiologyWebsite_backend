@@ -1,5 +1,0 @@
-# Vercel ignore file
-node_modules
-.env
-.env.local
-.env.production
