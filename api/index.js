@@ -62,13 +62,14 @@ const authRoutes = require('../routes/auth');
 const userRoutes = require('../routes/users');
 const appointmentRoutes = require('../routes/appointments');
 const offerRoutes = require('../routes/offers');
+const sliderRoutes = require('../routes/slider');
 
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/offers', offerRoutes);
-app.use('/api/slider', offerRoutes); // Slider routes are in offers.js
+app.use('/api/slider', sliderRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
