@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "cardiology-backend",
+  "buildCommand": "npm run build",
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@3.0.7"
