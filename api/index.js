@@ -24,6 +24,8 @@ app.use(cors({
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://cardiology-hospital.vercel.app',
+    'https://cardiology-website-frontend.vercel.app',
+    'https://cardiology-frontend.vercel.app',
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true,
