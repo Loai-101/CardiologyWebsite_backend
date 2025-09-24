@@ -44,7 +44,7 @@ const connectDB = async () => {
     
     if (!mongoURI) {
       console.error('❌ MONGODB_URI environment variable is not set');
-      process.exit(1);
+      throw new Error('MONGODB_URI environment variable is not set');
     }
     
     await mongoose.connect(mongoURI, {
@@ -55,12 +55,15 @@ const connectDB = async () => {
     console.log('✅ MongoDB connected successfully');
   } catch (error) {
     console.error('❌ MongoDB connection error:', error.message);
-    process.exit(1);
+    throw error;
   }
 };
 
-// Connect to database
-connectDB();
+// Connect to database (non-blocking for serverless)
+connectDB().catch(error => {
+  console.error('Failed to connect to MongoDB:', error.message);
+  // Don't exit the process in serverless environment
+});
 
 // Import routes
 const authRoutes = require('../routes/auth');
