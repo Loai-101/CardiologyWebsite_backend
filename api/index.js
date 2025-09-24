@@ -42,11 +42,6 @@ const connectDB = async () => {
   try {
     const mongoURI = process.env.MONGODB_URI;
     
-    if (!mongoURI) {
-      console.error('❌ MONGODB_URI environment variable is not set');
-      throw new Error('MONGODB_URI environment variable is not set');
-    }
-    
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -55,15 +50,12 @@ const connectDB = async () => {
     console.log('✅ MongoDB connected successfully');
   } catch (error) {
     console.error('❌ MongoDB connection error:', error.message);
-    throw error;
+    process.exit(1);
   }
 };
 
-// Connect to database (non-blocking for serverless)
-connectDB().catch(error => {
-  console.error('Failed to connect to MongoDB:', error.message);
-  // Don't exit the process in serverless environment
-});
+// Connect to database
+connectDB();
 
 // Import routes
 const authRoutes = require('../routes/auth');

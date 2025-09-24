@@ -1,17 +1,8 @@
-// Simple test endpoint to verify deployment
-const express = require('express');
-const app = express();
-
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Test endpoint working',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'not set',
-    hasMongoURI: !!process.env.MONGODB_URI,
-    hasJWTSecret: !!process.env.JWT_SECRET,
-    hasFrontendURL: !!process.env.FRONTEND_URL
+// CORS test endpoint for Vercel
+module.exports = (req, res) => {
+  res.json({ 
+    message: 'CORS is working!',
+    origin: req.headers.origin,
+    timestamp: new Date().toISOString()
   });
-});
-
-module.exports = app;
+};

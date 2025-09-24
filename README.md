@@ -17,7 +17,7 @@ Create a `.env` file in the backend root directory with the following variables:
 
 ```env
 # Database Configuration
-MONGODB_URI=your_mongodb_connection_string_here
+MONGODB_URI=mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority
 
 # Server Configuration
 PORT=5000
@@ -120,4 +120,3 @@ The server will start on `http://localhost:5000`
 3. Configure proper CORS origins
 4. Use a production MongoDB instance
 5. Set up proper logging and monitoring
-# Deployment trigger Wed, Sep 24, 2025  5:03:23 PM
