@@ -17,7 +17,7 @@ Create a `.env` file in the backend root directory with the following variables:
 
 ```env
 # Database Configuration
-MONGODB_URI=mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority
+MONGODB_URI=your_mongodb_connection_string_here
 
 # Server Configuration
 PORT=5000

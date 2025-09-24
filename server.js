@@ -36,7 +36,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection
 console.log('🔌 Attempting to connect to MongoDB...');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority', {
+const mongoURI = process.env.MONGODB_URI;
+
+if (!mongoURI) {
+  console.error('❌ MONGODB_URI environment variable is not set');
+  process.exit(1);
+}
+
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

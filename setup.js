@@ -7,7 +7,7 @@ const envExamplePath = path.join(__dirname, '.env.example');
 
 if (!fs.existsSync(envPath)) {
   const envContent = `# Database Configuration
-MONGODB_URI=mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority
+MONGODB_URI=your_mongodb_connection_string_here
 
 # Server Configuration
 PORT=5000
@@ -38,7 +38,7 @@ EMAIL_PASS=your_email_password`;
 
 // Create .env.example file
 const envExampleContent = `# Database Configuration
-MONGODB_URI=mongodb+srv://pmi_it:Loai-66343439@cluster0.e0rjr.mongodb.net/cardiology_hospital?retryWrites=true&w=majority
+MONGODB_URI=your_mongodb_connection_string_here
 
 # Server Configuration
 PORT=5000
