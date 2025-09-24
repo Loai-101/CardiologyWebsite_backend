@@ -42,6 +42,12 @@ const connectDB = async () => {
   try {
     const mongoURI = process.env.MONGODB_URI;
     
+    if (!mongoURI) {
+      console.error('❌ MONGODB_URI environment variable is not set');
+      process.exit(1);
+    }
+    
+    console.log('🔌 Attempting to connect to MongoDB...');
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -75,27 +81,28 @@ app.use('/api/slider', sliderRoutes);
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Cardiology Hospital API is running!',
-    version: '1.0.0',
-    endpoints: {
-      health: '/api/health',
-      test: '/api/test',
-      auth: '/api/auth',
-      users: '/api/users',
-      appointments: '/api/appointments',
-      offers: '/api/offers',
-      slider: '/api/slider'
-    },
+    message: 'Dental Clinic API is running!',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    version: '1.0.0',
+    cors: {
+      origin: process.env.FRONTEND_URL || 'not set',
+      allowedOrigins: [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'https://cardiology-hospital.vercel.app',
+        'https://cardiology-website-frontend.vercel.app'
+      ]
+    }
   });
 });
+
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Cardiology Hospital API is running!',
+    message: 'Dental Clinic API is running!',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });
