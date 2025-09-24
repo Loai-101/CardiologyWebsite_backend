@@ -69,6 +69,26 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/slider', offerRoutes); // Slider routes are in offers.js
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Cardiology Hospital API is running!',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      test: '/api/test',
+      auth: '/api/auth',
+      users: '/api/users',
+      appointments: '/api/appointments',
+      offers: '/api/offers',
+      slider: '/api/slider'
+    },
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
@@ -114,9 +134,21 @@ app.use('*', (req, res) => {
     success: false, 
     message: 'Route not found',
     path: req.originalUrl,
-    method: req.method
+    method: req.method,
+    availableEndpoints: {
+      root: '/',
+      health: '/api/health',
+      test: '/api/test',
+      auth: '/api/auth/*',
+      users: '/api/users/*',
+      appointments: '/api/appointments/*',
+      offers: '/api/offers/*',
+      slider: '/api/slider/*'
+    },
+    timestamp: new Date().toISOString()
   });
 });
 
 // Export for Vercel
 module.exports = app;
+
